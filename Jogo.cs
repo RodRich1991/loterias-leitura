@@ -44,7 +44,9 @@ namespace LerNumerosLoteria
         public static List<TipoJogo> JogosAceitos = new List<TipoJogo>
             {
                 new TipoJogo { Nome = "Mega Sena", QtdNumeros = 6, QtdMinimaAcertos = 4 },
-                new TipoJogo { Nome = "Loto Fácil", QtdNumeros = 25, QtdMinimaAcertos = 15 }
+                new TipoJogo { Nome = "Loto Fácil", QtdNumeros = 15, QtdMinimaAcertos = 11 },
+                new TipoJogo { Nome = "LotoMania", QtdNumeros = 20, QtdMinimaAcertos = 15 },
+                new TipoJogo { Nome = "Quina", QtdNumeros = 5, QtdMinimaAcertos = 2 }
             };
     }
 }

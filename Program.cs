@@ -7,14 +7,22 @@ namespace LerNumerosLoteria
     class Program
     {
 
-        private const string CaminhoArquivo = "JogosLoteria.txt";
+        private const string CaminhoArquivo = @"D:\Área de Trabalho\JogosLoteria.txt";
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Bem vindo!");
+            Console.WriteLine("Bem vindo!\n");
 
+            Console.WriteLine("Digite o nome do jogo que quer conferir: ");
+            var tipoJogo = Console.ReadLine().Trim();
             var sorteio = ReceberJogoDoUsuario();
-            List<Jogo> jogosArquivo = ConverterArquivoEmJogos();
+            List<Jogo> jogosArquivo = ConverterArquivoEmJogos(tipoJogo);
+
+            if (jogosArquivo.Count <= 0)
+            {
+                Console.WriteLine("\nNão foi encontrado nenhum jogo com nome '" + tipoJogo + "' no arquivo!");
+                return;
+            }
 
             ConfereJogos(jogosArquivo, sorteio);
 
@@ -39,14 +47,15 @@ namespace LerNumerosLoteria
             return System.IO.File.ReadAllLines(CaminhoArquivo);
         }
 
-        static List<Jogo> ConverterArquivoEmJogos()
+        static List<Jogo> ConverterArquivoEmJogos(string tipoJogo)
         {
             string[] arquivoAsString = ReadFileAsText();
             List<Jogo> jogos = new List<Jogo>();
 
             for (int i = 0; i < arquivoAsString.Length; i += 6)
             {
-                var idxTipoJogo = ConstantesJogo.JogosAceitos.FindIndex(tj => tj.Nome == arquivoAsString[i].Substring(6));
+                var nomeJogoAtual = arquivoAsString[i].Substring(6);
+                var idxTipoJogo = ConstantesJogo.JogosAceitos.FindIndex(tj => tj.Nome == nomeJogoAtual && nomeJogoAtual == tipoJogo);
                 if (idxTipoJogo >= 0)
                 {
                     jogos.Add(new Jogo
